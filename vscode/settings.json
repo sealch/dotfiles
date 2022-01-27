@@ -1,0 +1,70 @@
+{
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "files.autoSaveDelay": 1500,
+    "editor.formatOnPaste": true,
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "normal",
+    "files.autoSave": "afterDelay",
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "python.autoComplete.addBrackets": true,
+    "editor.cursorStyle": "block",
+    "editor.minimap.enabled": false,
+    "editor.cursorBlinking": "smooth",
+    "editor.smoothScrolling": false,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "git.autofetch": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "javascript.format.semicolons": "remove",
+    "typescript.format.semicolons": "remove",
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--fast"
+    ],
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.panel.defaultLocation": "right",
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
+    "gitlens.advanced.messages": {
+        "suppressLineUncommittedWarning": true
+    },
+    "npm-intellisense.importQuotes": "\"",
+    "autoimport.doubleQuotes": true,
+    "autoimport.useSemiColon": false,
+    "npm-intellisense.importLinebreak": "",
+    "typescript.preferences.quoteStyle": "double",
+    "gitlens.advanced.fileHistoryFollowsRenames": true,
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "todohighlight.isEnable": false,
+    "editor.fontSize": 13,
+    "diffEditor.renderSideBySide": false,
+    "files.watcherExclude": {
+        "**/.bloop": true,
+        "**/.metals": true,
+        "**/.ammonite": true
+    },
+    "diffEditor.codeLens": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "workbench.editor.revealIfOpen": true,
+    "editor.gotoLocation.multipleDeclarations": "goto",
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.gotoLocation.multipleImplementations": "goto",
+    "editor.gotoLocation.multipleReferences": "goto",
+    "editor.gotoLocation.multipleTypeDefinitions": "goto",
+    "workbench.colorTheme": "Palenight Italic",
+    "githubPullRequests.fileListLayout": "tree",
+    "window.zoomLevel": 1
+}

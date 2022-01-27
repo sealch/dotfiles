@@ -1,0 +1,1 @@
+# Scripts to quickly bootstrap mac
