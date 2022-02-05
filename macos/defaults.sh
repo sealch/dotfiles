@@ -21,6 +21,15 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Notification dismiss timeout:
 defaults write com.apple.notificationcenterui bannerTime -int 4
 
+# Show battery percentage
+defaults write com.apple.menuextra.battery ShowPercent YES
+
+# Set language and text formats
+defaults write NSGlobalDomain AppleLanguages -array "en" "ru" "ua"
+defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+defaults write NSGlobalDomain AppleMetricUnits -bool true
+
 # Sort Activity Monitor results by CPU usage
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
@@ -70,6 +79,9 @@ defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 ### DESKTOP
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
+
+# Set dock size
+defaults write com.apple.dock tilesize -int 40
 
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool true
