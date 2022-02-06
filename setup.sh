@@ -97,6 +97,7 @@ dev_utils=(
   fzf
   wget
   tree
+  htop
   gzip
   unrar
   ffmpeg
