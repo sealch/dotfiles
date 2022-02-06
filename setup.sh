@@ -90,9 +90,11 @@ done
 
 success "🛠 Installing misc developer CLI-tools..."
 dev_utils=(
+  z
   jq
   xz
   git
+  fzf
   wget
   tree
   gzip
@@ -118,8 +120,14 @@ chsh -s /usr/local/bin/zsh
 info "🤌 Installing oh-my-zsh..."
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-info "👽 Installing spaceship theme..."
-brew install spaceship
+info "👽 Installing starship prompt..."
+brew install starship
+
+info "Installing zsh autosuggestions..."
+brew install zsh-autosuggestions
+
+info "Installing shell syntax highlighting"
+brew install zsh-syntax-highlighting
 
 ## languages
 success "🔮 Installing languages\n"
