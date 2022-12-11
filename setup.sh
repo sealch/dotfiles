@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-DEFAULT_HOSTNAME="mbp"
-
 ### COLORS
 OFF='\033[0m' # Reset
 
@@ -27,12 +25,11 @@ error() {
   echo -e "$RED$1$OFF"
 }
 
-read -e -p "$(success '💻 Enter computer name: ')" -i "${DEFAULT_HOSTNAME}" HOSTNAME 
 read -e -p "$(success '📧 Enter your email: ')" USER_EMAIL
 
 if ! command -v brew &>/dev/null; then
   info "🍺 Installing homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   brew update
 
   brew --version
@@ -46,6 +43,7 @@ general_apps=(
   itsycal
   telegram
   google-chrome
+  brave-browser
   the-unarchiver
 )
 
@@ -91,6 +89,7 @@ done
 success "🛠 Installing misc developer CLI-tools..."
 dev_utils=(
   z
+  gh
   jq
   xz
   git
@@ -141,13 +140,6 @@ brew install python@3.9 ipython pyenv
 python --version
 pyenv --version
 
-info "🦀 Installing Rust..."
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.cargo/env
-rustup default stable
-rustup update
-rustc --version
-
 info "⚙️ Installing Golang..."
 brew install golang
 
@@ -155,31 +147,15 @@ info "🤡️ Installing Java..."
 brew install --cask java
 java --version
 
-success "🔧 Configuring VSCode.."
-./vscode/main.sh
-
-success "⚙️ Configuring Git..."
-./git/main.sh
-
 ## fonts
 success "Installing fonts..."
-brew tap caskroom/fonts
 brew tap homebrew/cask-fonts
 brew update
 
-fonts=(
-  font-fira-code
-  font-hack-nerd-font
-)
-
-brew install --cask "${fonts[@]}"
+brew install --cask font-hack-nerd-font
 
 success "Post cleanup..."
 brew cleanup
-
-## macos
-info "💻 Changing macOS settings..."
-./macos/defaults.sh
 
 ## keygen
 info "🔑 Generating SSH keys (Ed25519 with 150 rounds of KDF)..."

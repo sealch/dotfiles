@@ -111,7 +111,6 @@ defaults write com.apple.finder ShowRecentTags -bool false                 # Hid
 defaults write com.apple.finder QuitMenuItem -bool true                    # Allow quitting finder via ⌘ + Q.
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"        # When performing a search, search the current folder by default
 defaults write com.apple.finder _FXSortFoldersFirst -bool true             # Keep folders on top when sorting by name
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library      # Show the ~/Library folder
 
 killall Finder
 killall Dock
