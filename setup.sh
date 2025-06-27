@@ -25,13 +25,22 @@ error() {
   echo -e "$RED$1$OFF"
 }
 
-read -e -p "$(success '📧 Enter your email: ')" USER_EMAIL
+while [[ -z "$USER_EMAIL" ]]; do
+  read -e -p "$(success '📧 Enter your email: ')" USER_EMAIL
+done
 
 if ! command -v brew &>/dev/null; then
   info "🍺 Installing homebrew..."
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  
+  # Add homebrew to PATH for current session
+  if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+  
   brew update
-
   brew --version
 fi
 
@@ -45,6 +54,8 @@ general_apps=(
   google-chrome
   brave-browser
   the-unarchiver
+  karabiner-elements
+  bartender
 )
 
 for package in "${general_apps[@]}"; do
@@ -66,6 +77,7 @@ dev_tools=(
   tableplus
   sublime-text
   visual-studio-code
+  cursor
 )
 
 for package in "${dev_tools[@]}"; do
@@ -115,10 +127,17 @@ info "👺 Installing zsh..."
 brew install zsh
 
 info "Setting zsh as default..."
-chsh -s /usr/local/bin/zsh
+# Use proper zsh path based on installation method
+if [[ -f "/opt/homebrew/bin/zsh" ]]; then
+  sudo chsh -s /opt/homebrew/bin/zsh "$USER"
+elif [[ -f "/usr/local/bin/zsh" ]]; then
+  sudo chsh -s /usr/local/bin/zsh "$USER"
+else
+  sudo chsh -s "$(which zsh)" "$USER"
+fi
 
 info "🤌 Installing oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 info "👽 Installing starship prompt..."
 brew install starship
@@ -133,11 +152,22 @@ brew install zsh-syntax-highlighting
 success "🔮 Installing languages\n"
 
 info "🛠 Installing Node and TypeScript..."
-brew install nvm node typescript
+# Install nvm first, then use it to install node
+brew install --cask nvm
+# Create nvm directory if it doesn't exist
+mkdir -p ~/.nvm
+# Source nvm for current session
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
+# Install latest LTS node and npm packages
+nvm install --lts
+nvm use --lts
+npm install -g typescript
 
 info "🐍 Installing Python..."
-brew install python@3.9 ipython pyenv
-python --version
+brew install python@3 ipython pyenv
+python3 --version
 pyenv --version
 
 info "⚙️ Installing Golang..."
@@ -159,11 +189,34 @@ brew cleanup
 
 ## keygen
 info "🔑 Generating SSH keys (Ed25519 with 150 rounds of KDF)..."
-ssh-keygen -t ed25519 -o -a 150 -C "${USER_EMAIL}" -f ~/.ssh/id_ed25519
+if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+  ssh-keygen -t ed25519 -o -a 150 -C "${USER_EMAIL}" -f ~/.ssh/id_ed25519 -N ""
+else
+  warning "Ed25519 SSH key already exists, skipping..."
+fi
 
 info "🔑 Generating SSH keys (RSA with 4096 bits and 150 rounds of KDF)..."
-ssh-keygen -t rsa -b 4096 -o -a 150 -C "${USER_EMAIL}" -f ~/.ssh/id_rsa
+if [[ ! -f ~/.ssh/id_rsa ]]; then
+  ssh-keygen -t rsa -b 4096 -o -a 150 -C "${USER_EMAIL}" -f ~/.ssh/id_rsa -N ""
+else
+  warning "RSA SSH key already exists, skipping..."
+fi
 
 warning "If its first system boot ssh keys may be weak"
 
+info "🔧 Running macOS defaults configuration..."
+if [[ -f "macos/defaults.sh" ]]; then
+  bash macos/defaults.sh
+else
+  warning "macos/defaults.sh not found, skipping..."
+fi
+
+info "🖥 Installing iTerm2 settings..."
+if [[ -f "iterm/install.sh" ]]; then
+  bash iterm/install.sh
+else
+  warning "iterm/install.sh not found, skipping..."
+fi
+
 success '✨ Done!'
+
