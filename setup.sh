@@ -40,8 +40,21 @@ if ! command -v brew &>/dev/null; then
     eval "$(/usr/local/bin/brew shellenv)"
   fi
   
+  # Verify brew is now available
+  if ! command -v brew &>/dev/null; then
+    error "Homebrew installation failed or not in PATH"
+    exit 1
+  fi
+  
   brew update
   brew --version
+else
+  # Ensure homebrew is in PATH even if already installed
+  if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
 fi
 
 ## general
