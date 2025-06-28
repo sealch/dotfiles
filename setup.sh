@@ -166,7 +166,7 @@ success "🔮 Installing languages\n"
 
 info "🛠 Installing Node and TypeScript..."
 # Install nvm first, then use it to install node
-brew install --cask nvm
+brew install nvm
 # Create nvm directory if it doesn't exist
 mkdir -p ~/.nvm
 # Source nvm for current session
