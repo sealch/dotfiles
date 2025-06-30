@@ -44,7 +44,7 @@ defaults write -g AppleActionOnDoubleClick 'Maximize'                     # Maxi
 defaults write com.apple.notificationcenterui bannerTime -int 4
 
 # Show battery percentage
-defaults write com.apple.menuextra.battery ShowPercent YES
+defaults write com.apple.controlcenter BatteryShowPercentage -bool true
 
 # Set language and text formats
 defaults write NSGlobalDomain AppleLanguages -array "en" "ru" "ua"
@@ -94,6 +94,7 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Enable three finger drag
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 
 ### ACTIVITY MONITOR
@@ -316,6 +317,7 @@ for app in "Activity Monitor" \
 	"Finder" \
 	"Google Chrome" \
 	"Safari" \
+	"ControlCenter" \
 	"SystemUIServer"; do
 	killall "${app}" &> /dev/null || true
 done
