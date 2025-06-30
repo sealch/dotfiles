@@ -87,9 +87,15 @@ defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 defaults write NSGlobalDomain NSWindowShouldDragOnGesture -bool true
 
 ### TRACKPAD SETTINGS
+# Set click pressure to light (0 = light, 1 = medium, 2 = firm)
+defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 0
+defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 0
+
+# For external trackpads
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad FirstClickThreshold -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad SecondClickThreshold -int 0
+
 # Enable tap to click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
@@ -317,6 +323,7 @@ for app in "Activity Monitor" \
 	"Finder" \
 	"Google Chrome" \
 	"Safari" \
+	"Trackpad" \
 	"ControlCenter" \
 	"SystemUIServer"; do
 	killall "${app}" &> /dev/null || true
