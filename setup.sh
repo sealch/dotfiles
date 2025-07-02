@@ -76,6 +76,21 @@ for package in "${general_apps[@]}"; do
   brew install --cask "${package}"
 done
 
+## xcode command line tools
+success "🔨 Installing Xcode Command Line Tools..."
+if ! xcode-select -p &>/dev/null; then
+  info "Installing Xcode Command Line Tools..."
+  xcode-select --install
+  
+  # Wait for installation to complete
+  until xcode-select -p &>/dev/null; do
+    sleep 5
+  done
+  success "Xcode Command Line Tools installed successfully!"
+else
+  info "Xcode Command Line Tools already installed"
+fi
+
 ## development
 success "👷‍♂️ Installing dev tools...\n"
 
