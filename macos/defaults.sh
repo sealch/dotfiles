@@ -18,6 +18,11 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Disable crash reporter
 defaults write com.apple.CrashReporter DialogType none
 
+# Hide date and day of week
+defaults write com.apple.menuextra.clock ShowDate -int 2
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool false
+
+
 # Disable application quarantine message for signed applications
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
